@@ -1,0 +1,106 @@
+<!-- Navbar -->
+<nav class="navbar navbar-light bg-primary text-light">
+  <div class="container">
+    <h1>Angular CRUD</h1>
+    <div class="d-flex">
+      <button (click)="ClickAddUser()" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add User</button>
+    </div>
+  </div>
+</nav>
+<!--  -->
+<!-- Table -->
+<div class="container mt-5">
+  <table class="table">
+    <thead>
+      <tr >
+        <th scope="col">UserId</th>
+        <!-- <th scope="col">Photo</th> -->
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Mobile No.</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.id}}</td>
+        <!-- <td><img src="{{filterImg(user.photo)}}" ></td> -->
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.mobile}}</td>
+        <td>{{user.salary | currency}}</td>
+        <td>
+          <button
+          class="btn btn-primary btn-sm"
+          data-bs-toggle="modal"
+           data-bs-target="#staticBackdrop"
+          (click)="onEdit(user)"
+          >Edit</button>
+          <button
+          class="btn btn-danger btn-sm ms-1"
+          (click)="deleteUser(user)"
+          >Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!--  -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formValue">
+          <!-- <div class="mb-3">
+            <label for="formFile" class="btn btn-primary btn-sm"c>+</label>
+            <input class="form-control" formControlName='photo' type="file" id="formFile" hidden>
+          </div> -->
+          <div class="mb-3">
+            <label for="exampleInputFirstName1" class="form-label">First Name</label>
+            <input type="text" formControlName='firstName' class="form-control" id="exampleInputFirstName1" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputLastName1" class="form-label">Last Name</label>
+            <input type="text" formControlName='lastName' class="form-control" id="exampleInputLastName1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email Address</label>
+            <input type="email" formControlName='email' class="form-control" id="exampleInputEmail1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputMobile1" class="form-label">Mobile Number</label>
+            <input type="text" formControlName='mobile' class="form-control" id="exampleInputMobile1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputSalary1" class="form-label">Salary</label>
+            <input type="text" formControlName='salary' class="form-control" id="exampleInputSalary1">
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button"
+         class="btn btn-primary"
+         (click)="postUserDetails()"
+         *ngIf="showAdd"
+         >Add</button>
+        <button type="button"
+         class="btn btn-primary"
+         (click)="updateUser()"
+         *ngIf="showUpdate"
+         >Update</button>
+      </div>
+    </div>
+  </div>
+</div>
